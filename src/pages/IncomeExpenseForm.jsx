@@ -1,33 +1,33 @@
 import { useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { addEntry } from "../features/financeSlice";
+import { useDispatch } from "react-redux";
+import { addEntry } from "../actions";
 
 function IncomeExpenseForm() {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [entryType, setEntryType] = useState("");
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (!description || !amount) return alert("Please fill out all fields.");
+  const handleAddEntry = (e) => {
+    e.preventDefault();
+    if (!description || !amount) return alert("Please fill out all fields.");
 
-//     dispatch(addEntry({
-//       id: Date.now().toString(),
-//       description,
-//       amount: parseFloat(amount),
-//       entryType
-//     }));
+    dispatch(addEntry({
+      description,
+      amount: parseFloat(amount),
+      entryType
+    }));
 
     // Reset fields
-//     setDescription("");
-//     setAmount("");
-//   };
+    setDescription("");
+    setAmount("");
+    setEntryType("income");
+  };
 
   return (
     <div>
       <h1>New Entry Page</h1>
-      {/* onSubmit={handleSubmit} */}
+      
       <form >
         <div>
           <label>Description:</label>
@@ -62,7 +62,7 @@ function IncomeExpenseForm() {
           </select>
         </div>
         <br />
-        <button type="submit">Add Entry</button>
+        <button onClick={handleAddEntry}>Add Entry</button>
       </form>
     </div>
   );
