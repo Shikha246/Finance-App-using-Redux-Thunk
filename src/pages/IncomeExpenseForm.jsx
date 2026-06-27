@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addEntry } from "../actions";
+import { addEntry,addExpense } from "../actions";
 
 function IncomeExpenseForm() {
   const [description, setDescription] = useState("");
@@ -10,13 +10,21 @@ function IncomeExpenseForm() {
 
   const handleAddEntry = (e) => {
     e.preventDefault();
-    if (!description || !amount) return alert("Please fill out all fields.");
 
-    dispatch(addEntry({
+    if(entryType === "income"){
+      dispatch(addEntry({
       description,
       amount: parseFloat(amount),
       entryType
     }));
+    }else{
+      dispatch(addExpense({
+      description,
+      amount: parseFloat(amount),
+      entryType
+    }));
+    }
+    
 
     // Reset fields
     setDescription("");
